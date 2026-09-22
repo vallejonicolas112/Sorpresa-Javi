@@ -113,37 +113,45 @@
 </head>
 <body>
 
-    <audio id="musica" src="cancion.mp3" loop></audio>
+    <!-- Aquí está la corrección: cancion.mp3.mp3 y preload para celulares -->
+    <audio id="musica" src="cancion.mp3.mp3" preload="auto" loop></audio>
 
     <div class="container">
+        <!-- Pantalla 1 -->
         <div id="screen1" class="screen active">
             <h1>Para Javi... 🌻</h1>
             <button onclick="startExperience()">Toca aquí para abrir tu sorpresa, bebé.</button>
         </div>
 
+        <!-- Pantalla 2 -->
         <div id="screen2" class="screen">
             <p>¡Feliz día de las flores amarillas! Hoy empieza la primavera y, aunque los kilómetros nos separen un poquito ahora mismo, no quería dejar pasar este día sin sacarte una sonrisa.</p>
             <button onclick="nextScreen(2)">Siguiente 🌻</button>
         </div>
 
+        <!-- Pantalla 3 -->
         <div id="screen3" class="screen">
             <div class="gif-container">
+                <!-- GIF local -->
                 <img src="tumblr_8e012895b2ab5e7223dff67d6a9a5c51_22540904_540.gif" alt="Shrek y Fiona corriendo en campo de flores">
             </div>
-            <p>Esta imagen representa muy bien lo que yo siento cuando te tengo cerca❤️.</p>
+            <p>Así exactamente me imagino que estaríamos corriendo por un campo de girasoles si estuviéramos cerca.</p>
             <button onclick="nextScreen(3)">Siguiente 🌻</button>
         </div>
 
+        <!-- Pantalla 4 -->
         <div id="screen4" class="screen">
             <p>Quiero seguir pasando mis días contigo. Te prometo que muy pronto, cuando por fin nos veamos, te daré tu ramo de flores amarillas en persona. Te quiero muchísimo. <span class="butterfly">🦋</span></p>
             <button onclick="nextScreen(4)">Siguiente 🌻</button>
         </div>
 
+        <!-- Pantalla 5 -->
         <div id="screen5" class="screen">
             <p>Sé que estás a full estudiando y preparándote⚖️. Eres increíblemente capaz e inteligente, te deseo todo el éxito del mundo en esta etapa. ¡Tú puedes con esto y con todo lo que te propongas!</p>
             <button onclick="nextScreen(5)">Siguiente 🌻</button>
         </div>
 
+        <!-- Pantalla 6 -->
         <div id="screen6" class="screen">
             <h1>¡Feliz día Javi!</h1>
             <p>¡Tú puedes con esto todo lo que te propongas! 😘😘</p>
@@ -154,8 +162,13 @@
         const elements = ['🌼', '🌻', '💛', '✨'];
 
         function startExperience() {
-            // Reproducir música MP3 local
-            document.getElementById('musica').play();
+            // Reproducir música forzando la carga (ideal para celulares)
+            const musica = document.getElementById('musica');
+            musica.volume = 1.0;
+            musica.load();
+            musica.play().catch(function(error) {
+                console.log("No se pudo reproducir el audio:", error);
+            });
             
             // Iniciar lluvia
             setInterval(createFallingItem, 300);
