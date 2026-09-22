@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Javi 🌻</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffe6f0;
+            font-family: 'Dancing Script', cursive;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(255, 182, 193, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            max-width: 400px;
+            width: 90%;
+            z-index: 10;
+            position: relative;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #ff9800;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        p {
+            font-size: 1.6em;
+            line-height: 1.4;
+            margin-bottom: 30px;
+        }
+
+        button {
+            background-color: #ffb74d;
+            border: none;
+            border-radius: 25px;
+            padding: 15px 25px;
+            font-size: 1.3em;
+            font-family: 'Dancing Script', cursive;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #ffa726;
+            transform: scale(1.05);
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.8s;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gif-container img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .butterfly {
+            font-size: 1.5em;
+            display: inline-block;
+            animation: flutter 2s infinite ease-in-out;
+        }
+
+        @keyframes flutter {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(-10deg); }
+            75% { transform: translateY(5px) rotate(10deg); }
+        }
+
+        /* Configuración base para la lluvia de elementos */
+        .falling-item {
+            position: absolute;
+            top: -10%;
+            z-index: 1;
+            user-select: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="musica" src="cancion.mp3" loop></audio>
+
+    <div class="container">
+        <div id="screen1" class="screen active">
+            <h1>Para Javi... 🌻</h1>
+            <button onclick="startExperience()">Toca aquí para abrir tu sorpresa, bebé.</button>
+        </div>
+
+        <div id="screen2" class="screen">
+            <p>¡Feliz día de las flores amarillas! Hoy empieza la primavera y, aunque los kilómetros nos separen un poquito ahora mismo, no quería dejar pasar este día sin sacarte una sonrisa.</p>
+            <button onclick="nextScreen(2)">Siguiente 🌻</button>
+        </div>
+
+        <div id="screen3" class="screen">
+            <div class="gif-container">
+                <img src="tumblr_8e012895b2ab5e7223dff67d6a9a5c51_22540904_540.gif" alt="Shrek y Fiona corriendo en campo de flores">
+            </div>
+            <p>Esta imagen representa muy bien lo que yo siento cuando te tengo cerca❤️.</p>
+            <button onclick="nextScreen(3)">Siguiente 🌻</button>
+        </div>
+
+        <div id="screen4" class="screen">
+            <p>Quiero seguir pasando mis días contigo. Te prometo que muy pronto, cuando por fin nos veamos, te daré tu ramo de flores amarillas en persona. Te quiero muchísimo. <span class="butterfly">🦋</span></p>
+            <button onclick="nextScreen(4)">Siguiente 🌻</button>
+        </div>
+
+        <div id="screen5" class="screen">
+            <p>Sé que estás a full estudiando y preparándote⚖️. Eres increíblemente capaz e inteligente, te deseo todo el éxito del mundo en esta etapa. ¡Tú puedes con esto y con todo lo que te propongas!</p>
+            <button onclick="nextScreen(5)">Siguiente 🌻</button>
+        </div>
+
+        <div id="screen6" class="screen">
+            <h1>¡Feliz día Javi!</h1>
+            <p>¡Tú puedes con esto todo lo que te propongas! 😘😘</p>
+        </div>
+    </div>
+
+    <script>
+        const elements = ['🌼', '🌻', '💛', '✨'];
+
+        function startExperience() {
+            // Reproducir música MP3 local
+            document.getElementById('musica').play();
+            
+            // Iniciar lluvia
+            setInterval(createFallingItem, 300);
+
+            // Cambiar a pantalla 2
+            nextScreen(1);
+        }
+
+        function nextScreen(current) {
+            document.getElementById(`screen${current}`).classList.remove('active');
+            document.getElementById(`screen${current + 1}`).classList.add('active');
+        }
+
+        function createFallingItem() {
+            const item = document.createElement('div');
+            item.classList.add('falling-item');
+            
+            // Elegir elemento aleatorio
+            const selectedElement = elements[Math.floor(Math.random() * elements.length)];
+            item.innerText = selectedElement;
+            
+            // Si es un girasol, hacerlo 50% más grande (4.5em) que el resto (3em)
+            if (selectedElement === '🌻') {
+                item.style.fontSize = '4.5em';
+            } else {
+                item.style.fontSize = '3em';
+            }
+            
+            // Posición y animación aleatoria
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.animationDuration = Math.random() * 3 + 4 + 's'; // Entre 4s y 7s de caída
+            
+            document.body.appendChild(item);
+            
+            // Eliminar elemento una vez que cae
+            setTimeout(() => {
+                item.remove();
+            }, 7000);
+        }
+    </script>
+</body>
+</html>
